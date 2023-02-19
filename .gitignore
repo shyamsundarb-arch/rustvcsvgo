@@ -1,0 +1,9 @@
+*/target/*
+*/bin/*
+*/obj/*
+**/.tfstate.*
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform.tfstate.lock.info
+terraform.tfstate
+terraform/.terraform/*

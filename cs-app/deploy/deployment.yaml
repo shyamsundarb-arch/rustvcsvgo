@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cs-app
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cs-app
+  template:
+    metadata:
+      labels:
+        app: cs-app
+    spec:
+      containers:
+      - name: cs-app
+        image: youraccount.dkr.ecr.us-east-1.amazonaws.com/cs-app:0.3
+        ports:
+        - name: http
+          containerPort: 8002
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 500m
+          limits:
+            memory: 1024Mi
+            cpu: 1000m
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: PRODUCTION
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - go-app
+                  - rust-app
+                  - cs-app
+              topologyKey: topology.kubernetes.io/zone

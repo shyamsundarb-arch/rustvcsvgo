@@ -1,0 +1,25 @@
+---
+version: "3"
+
+services:
+
+  rust-app:
+    build: rust-app
+    ports:
+    - 8000:8080
+    environment:
+    - ROCKET_ADDRESS="0.0.0.0"
+
+  go-app:
+    build: go-app
+    ports:
+    - 8001:8001
+    environment:
+    - GIN_MODE=release
+
+  cs-app:
+    build: cs-app
+    ports:
+    - 8002:80
+    environment:
+    - ASPNETCORE_ENVIRONMENT=PRODUCTION
