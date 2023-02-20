@@ -1,17 +1,33 @@
-var builder = WebApplication.CreateBuilder(args);
+var app = WebApplication.CreateBuilder(args).Build();
 
-// Add services to the container.
+app.MapGet("/api/device", () =>
+{
+    var devices = new List<Device>
+    {
+        new (Id: 1, Mac: "5F-33-CC-1F-43-82", Firmware: "2.1.6"),
+        new (Id: 2, Mac: "EF-2B-C4-F5-D6-34", Firmware: "2.1.6"),
+    };
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+    return devices;
+});
 
-var app = builder.Build();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.MapPost("/api/device", () =>
+{
+    int number = 40;
+    int fib = Fibonacci(number);
+    string location = $"/api/devices/{fib}";
+    return TypedResults.Created(location, location);
+});
 
 app.Run();
+
+static int Fibonacci(int n)
+{
+    if (n == 1 || n == 2)
+        return 1;
+    if (n == 3)
+        return 2;
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+
+record Device(int Id, string Mac, string Firmware);
