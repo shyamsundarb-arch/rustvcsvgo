@@ -12,8 +12,8 @@
   </ItemGroup>
   
   <PropertyGroup>
-		<TieredPGO>true</TieredPGO>
-		<TieredCompilationQuickJitForLoops>true</TieredCompilationQuickJitForLoops>
-	</PropertyGroup>
+    <TieredPGO>true</TieredPGO>
+    <TieredCompilationQuickJitForLoops>true</TieredCompilationQuickJitForLoops>
+  </PropertyGroup>
 
 </Project>
